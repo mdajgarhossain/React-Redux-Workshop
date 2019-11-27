@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Profile from './profile';
 import MyState from './state';
+import MyEvents from './my_events';
 
 class App extends Component {
 
@@ -13,7 +14,9 @@ class App extends Component {
                         <Profile id={2}/>
                         <Profile id={3}/> */}
 
-                        <MyState />
+                        {/* <MyState /> */}
+
+                        <MyEvents />
 
                     </div>
                 </div>
