@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ClickMe from './click_me';
+import TwoWayData from './two_way_data';
 
 class MyEvents extends Component {
     render() {
@@ -7,6 +8,7 @@ class MyEvents extends Component {
             <div>
                 <h1>My Events</h1>
                 <ClickMe />
+                <TwoWayData />
             </div>
         )
     }
