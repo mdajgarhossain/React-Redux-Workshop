@@ -8,7 +8,7 @@ class App extends Component {
 
     //state lifting up
     handleForm = (data) => {
-        console.log('I am from APP!');
+        console.log('I am from APP! Form Data received!');
         console.log(data);
     }
 

@@ -48,8 +48,8 @@ import React from 'react';
     )
 );*/
 
-const Form = ({values={}, changeHandler, submitHandler, formRef}) => (
-    <form ref={formRef} onSubmit={submitHandler}>
+const Form = ({values={}, changeHandler, submitHandler, formRef, resetHandler}) => (
+    <form ref={formRef} onSubmit={submitHandler} onReset={resetHandler}>
 
         <h3>Please fill up the form below</h3>
 

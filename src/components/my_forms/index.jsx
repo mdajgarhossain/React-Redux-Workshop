@@ -30,6 +30,20 @@ class MyForm extends Component {
         console.log('All data from isolated index:');
         console.log(this.state.values);
         this.props.handleForm(this.state.values);
+
+        console.log(event.target);
+        this.formRef.current.reset();
+    }
+
+    resetHandler = () => {
+        console.log('Resetting...');
+        this.setState({
+            values: {
+                name: '',
+                email: '',
+                password: ''
+            }
+        });
     }
 
     render() {
@@ -40,6 +54,7 @@ class MyForm extends Component {
                 changeHandler={this.changeHandler}
                 submitHandler={this.submitHandler}
                 formRef={this.formRef} 
+                resetHandler={this.resetHandler}
                 />
             </div>
         )
