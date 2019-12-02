@@ -32,7 +32,8 @@ class MyForm extends Component {
         this.props.handleForm(this.state.values);
 
         console.log(event.target);
-        this.formRef.current.reset();
+        // this.formRef.current.reset();
+        event.target.reset();
     }
 
     resetHandler = () => {
