@@ -12,8 +12,33 @@ class MyForm extends Component {
             name: '',
             email: '',
             password: ''
+        },
+        errors: {
+            name: '',
+            email: '',
+            password: ''
         }
     };
+
+    validationHandler = () => {
+        const errors = {};
+        const {values: {name, email, password}} = this.state;
+
+        if(!name) {
+            errors.name = 'You must provide your name';
+        }
+        if(!email) {
+            errors.email = 'You must provide your email';
+        }
+        if(!password) {
+            errors.password = 'You must provide your password';
+        }
+        
+        return {
+            errors,
+            isValid: Object.keys(errors).length === 0
+        }
+    }
 
     changeHandler = (event) => {
         this.setState({
@@ -29,11 +54,37 @@ class MyForm extends Component {
 
         console.log('All data from isolated index:');
         console.log(this.state.values);
-        this.props.handleForm(this.state.values);
 
-        console.log(event.target);
-        // this.formRef.current.reset();
-        event.target.reset();
+        const {errors, isValid} = this.validationHandler();
+
+        if(!isValid) {
+            this.setState({errors: {...this.state.errors, ...errors}},
+                () => {
+                    alert(JSON.stringify(this.state.errors));
+                }
+            );
+        } else {
+            this.props.handleForm(this.state.values);
+            this.formRef.current.reset();
+            // this.setState({errors: {}});
+        }  
+    }
+
+    blurHandler = () => {
+        const {errors, isValid} = this.validationHandler();
+
+        if(!isValid) {
+            this.setState({errors: {...this.state.errors, ...errors}});
+        }
+    }
+
+    focusHandler = (event) => {
+        this.setState({
+            errors: {
+                ...this.state.errors,
+                [event.target.name]: ''
+            }
+        });
     }
 
     resetHandler = () => {
@@ -51,11 +102,14 @@ class MyForm extends Component {
         return (
             <div>
                 <Form 
-                values={this.state.values} 
-                changeHandler={this.changeHandler}
-                submitHandler={this.submitHandler}
-                formRef={this.formRef} 
-                resetHandler={this.resetHandler}
+                    values={this.state.values} 
+                    changeHandler={this.changeHandler}
+                    submitHandler={this.submitHandler}
+                    formRef={this.formRef} 
+                    resetHandler={this.resetHandler}
+                    errors={this.state.errors}
+                    blurHandler={this.blurHandler}
+                    focusHandler={this.focusHandler}
                 />
             </div>
         )
@@ -63,3 +117,9 @@ class MyForm extends Component {
 }
 
 export default MyForm;
+
+/*
+create a form step by step
+1.find out my fields
+2.
+*/
