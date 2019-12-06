@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Formik, Form, Field} from 'formik';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
 import MyForm from './form';
 import * as Yup from 'yup';
 
@@ -49,10 +49,7 @@ class MyFormik extends Component {
                                             name='name'
                                             placeholder='Enter your name'
                                         />
-                                        {/*Custom error message setup*/}
-                                        {props.errors.name && props.touched.name && (
-                                            <div>{props.errors.name}</div>
-                                        )}
+                                        <ErrorMessage name='name' component='div'/>
                                     </div>
                                     <br/>
                                     <div>
@@ -61,10 +58,7 @@ class MyFormik extends Component {
                                             name='email'
                                             placeholder='Enter your email'
                                         />
-                                        {/*Custom error message setup*/}
-                                        {props.errors.email && props.touched.email && (
-                                            <div>{props.errors.email}</div>
-                                        )}
+                                        <ErrorMessage name='email' component='div'/>
                                     </div>
                                     <br/>
                                     <div>
@@ -73,10 +67,7 @@ class MyFormik extends Component {
                                             name='password'
                                             placeholder='Enter your password'
                                         />
-                                        {/*Custom error message setup*/}
-                                        {props.errors.password && props.touched.password && (
-                                            <div>{props.errors.password}</div>
-                                        )}
+                                        <ErrorMessage name='password' component='div'/>
                                     </div>
                                     <br/>
                                     <button type='submit'>Submit</button>
