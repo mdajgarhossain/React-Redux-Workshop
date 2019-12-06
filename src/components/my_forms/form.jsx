@@ -107,14 +107,7 @@ const Form = ({
             />
             {errors.password && <div className='invalid-feedback'>{errors.password}</div>}
         </div>
-
-        <div className="form-group">
-            <label htmlFor='password'>What is your password?</label>
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"/>
-            <label class="form-check-label" for="defaultCheck1">
-                Javascript
-            </label>
-        </div>
+        
         <button className='btn btn-secondary'>Submit</button>
     </form>
 );
