@@ -3,6 +3,16 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import MyForm from './form';
 import * as Yup from 'yup';
 
+const CustomField = ({name, type, placeholder}) => (
+    <div>
+        <Field
+            name={name}
+            type={type}
+            placeholder={placeholder}
+        />
+        <ErrorMessage name={name} component='div'/>
+    </div>
+);
 
 const myValidationSchema = Yup.object().shape({
     name: Yup.string('Must Be String')
@@ -27,11 +37,18 @@ class MyFormik extends Component {
                     initialValues={{
                         name: '', 
                         email: '', 
-                        password: ''
+                        password: '',
+                        links: {
+                            facebook: '',
+                            twitter: ''
+                        },
+                        phone: 'Nokia',
+                        fastCharging: false
                     }}
                     onSubmit={(values, formikBag) => {
                         console.log(values);
                         console.log(formikBag);
+                        formikBag.resetForm();
                     }}
                     validationSchema={myValidationSchema}
                     // validateOnBlur={true}
@@ -44,30 +61,48 @@ class MyFormik extends Component {
                         return (
                             <div> {/*ekhane ei div er proyojon nai, karon upore div ache */}
                                 <Form>
+                                    <CustomField 
+                                        name='name' 
+                                        placeholder='Enter your name'
+                                    />
+                                    <br/>
+                                    <CustomField 
+                                        name='email' 
+                                        type='email' 
+                                        placeholder='Enter your email'
+                                    />
+                                    <br/>
+                                    <CustomField 
+                                        name='password'
+                                        type='password'
+                                        placeholder='Enter your password'
+                                    />
+                                    <br/>
+                                    <CustomField 
+                                        name='links.facebook'
+                                        placeholder='Enter facebook URL'
+                                    />
+                                    <br/>
+                                    <CustomField
+                                        name='links.twitter' 
+                                        placeholder='Enter twitter URL'
+                                    />
+                                    <br/>
                                     <div>
-                                        <Field
-                                            name='name'
-                                            placeholder='Enter your name'
-                                        />
-                                        <ErrorMessage name='name' component='div'/>
+                                        <Field name='phone' as='select'>
+                                            <option value='Nokia'>Nokia</option>
+                                            <option value='Samsung'>Samsung</option>
+                                            <option value='iPhone'>iPhone</option>
+                                        </Field>
                                     </div>
                                     <br/>
                                     <div>
                                         <Field
-                                            type='email'
-                                            name='email'
-                                            placeholder='Enter your email'
+                                            type='checkbox'
+                                            name='fastCharging'
+                                            checked={props.values.fastCharging} 
                                         />
-                                        <ErrorMessage name='email' component='div'/>
-                                    </div>
-                                    <br/>
-                                    <div>
-                                        <Field
-                                            type='password'
-                                            name='password'
-                                            placeholder='Enter your password'
-                                        />
-                                        <ErrorMessage name='password' component='div'/>
+                                        Fast Charging?
                                     </div>
                                     <br/>
                                     <button type='submit'>Submit</button>
