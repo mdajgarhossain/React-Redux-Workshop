@@ -4,6 +4,7 @@ import MyState from './state';
 import MyEvents from './my_events';
 import MyForm from './my_forms';
 import MyFormik from './my_formik';
+import MyList from './my_list';
 
 class App extends Component {
 
@@ -33,7 +34,10 @@ class App extends Component {
                         {/* <MyForm handleForm={this.handleForm}/> */}
 
                         {/* Day 8 */}
-                        <MyFormik />
+                        {/* <MyFormik /> */}
+
+                        {/* Day 9 */}
+                        <MyList />
 
                     </div>
                 </div>
