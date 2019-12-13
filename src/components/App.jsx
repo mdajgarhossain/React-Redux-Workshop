@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
+
+import styles from './app.module.css';
+
 import Profile from './profile';
 import MyState from './state';
 import MyEvents from './my_events';
 import MyForm from './my_forms';
 import MyFormik from './my_formik';
 import MyList from './my_list';
+import MyTable from './my_table';
 
 class App extends Component {
 
@@ -37,7 +41,10 @@ class App extends Component {
                         {/* <MyFormik /> */}
 
                         {/* Day 9 */}
-                        <MyList />
+                        {/* <MyList /> */}
+
+                        {/* Day 10 */}
+                        <MyTable />
 
                     </div>
                 </div>
