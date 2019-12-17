@@ -1,35 +1,21 @@
 import React, { Component } from 'react'
 
 class ChildComponent extends Component {
-    constructor(props) {
-        super(props);
-        console.log('LCM for ChildComponent- constructor(4)');
+
+    componentWillUnmount() {
+        console.log('Unmounting...');
     }
 
-    state = {
-        count: 0
-    };
-
-    // componentWillMount() {
-    //     console.log('LCM for ChildComponent - componentWillMount(2)');
-    // }
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-        console.log('LCM for ChildComponent - getDerivedStateFromProps(5)');
-        return null;
-    }
-
-    componentDidMount() {
-        console.log('LCM for ChildComponent - componentDidMount(7)');
-    }
-
-
-    render() {
-        console.log('LCM for ChildComponent - render(6)');
-        
+    render() {        
         return (
             <div>
-                <h1>Child Component</h1>
+                <h1>{this.props.data}</h1>
+                <button 
+                    className='btn btn-danger' 
+                    onClick={() => this.props.remove(this.props.index)}
+                >
+                    Delete
+                </button>
             </div>
         )
     }
