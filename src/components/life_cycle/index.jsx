@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 
 import ChildComponent from './child_components';
 
@@ -12,9 +13,9 @@ class LifeCycleDemo extends Component {
     }
 
     componentDidMount() {
-        fetch(URL)
-            .then(response => response.json())
-            .then(data => {
+        Axios.get(URL)
+            .then(({data}) => {
+                // console.log(response);
                 console.log(data);
                 this.setState({posts: data})
             })
