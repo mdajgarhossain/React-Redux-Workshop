@@ -10,6 +10,7 @@ import MyFormik from './my_formik';
 import MyList from './my_list';
 import MyTable from './my_table';
 import MyStyledComponent from './my_styled_component';
+import LifeCycleDemo from './life_cycle';
 
 class App extends Component {
 
@@ -46,7 +47,10 @@ class App extends Component {
 
                         {/* Day 10 */}
                         {/* <MyTable /> */}
-                        <MyStyledComponent />
+                        {/* <MyStyledComponent /> */}
+
+                        {/* Day 11 */}
+                        <LifeCycleDemo />
 
                     </div>
                 </div>
