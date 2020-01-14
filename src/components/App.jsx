@@ -11,6 +11,8 @@ import MyList from './my_list';
 import MyTable from './my_table';
 import MyStyledComponent from './my_styled_component';
 import LifeCycleDemo from './life_cycle';
+import HOC from './hoc';
+import Another from './hoc/another';
 
 class App extends Component {
 
@@ -50,7 +52,11 @@ class App extends Component {
                         {/* <MyStyledComponent /> */}
 
                         {/* Day 11 */}
-                        <LifeCycleDemo />
+                        {/* <LifeCycleDemo /> */}
+
+                        {/* Day 12 */}
+                        <HOC />
+                        {/* <Another /> */}
 
                     </div>
                 </div>
