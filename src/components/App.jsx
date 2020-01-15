@@ -13,6 +13,7 @@ import MyStyledComponent from './my_styled_component';
 import LifeCycleDemo from './life_cycle';
 import HOC from './hoc';
 import Another from './hoc/another';
+import ContextDemo from './context_api';
 
 class App extends Component {
 
@@ -55,8 +56,11 @@ class App extends Component {
                         {/* <LifeCycleDemo /> */}
 
                         {/* Day 12 */}
-                        <HOC />
+                        {/* <HOC /> */}
                         {/* <Another /> */}
+
+                        {/* Day 13 */}
+                        <ContextDemo />
 
                     </div>
                 </div>
