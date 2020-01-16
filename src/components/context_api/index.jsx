@@ -1,32 +1,56 @@
-import React, {Component, createContext} from 'react';
+import React, {Component, createContext, useContext} from 'react';
 
 const Profile = () => {
+
+    const {user} = useContext(AuthContext);
+
     return(
-        <AuthContext.Consumer>
-            {({user}) => (
-                <div>
-                    <p>Name: {user.name}</p>
-                    <p>Email: {user.email}</p>
-                </div>
-            )}
-        </AuthContext.Consumer>
+        <div>
+            <p>Name: {user.name}</p>
+            <p>Email: {user.email}</p>
+            <p>Profession: {user.profession}</p>
+        </div>
     );
+
+    // return(
+    //     <AuthContext.Consumer>
+    //         {({user}) => (
+    //             <div>
+    //                 <p>Name: {user.name}</p>
+    //                 <p>Email: {user.email}</p>
+    //             </div>
+    //         )}
+    //     </AuthContext.Consumer>
+    // );
 };
 
 const Navbar = () => {
+
+    const {isAuthenticated, toggleAuth} = useContext(AuthContext);
+
     return(
-        <AuthContext.Consumer>
-            {({isAuthenticated, toggleAuth}) => (
-                <>
-                    {isAuthenticated ? ( 
-                        <button onClick={toggleAuth}>Logout</button>
-                    ) : (
-                        <button onClick={toggleAuth}>Login</button>
-                    )}
-                </>
-            )} 
-        </AuthContext.Consumer>
+        <>
+            {isAuthenticated ? ( 
+                <button onClick={toggleAuth}>Logout</button>
+            ) : (
+                <button onClick={toggleAuth}>Login</button>
+            )}
+        </>
     );
+
+    // return(
+    //     <AuthContext.Consumer>
+    //         {({isAuthenticated, toggleAuth}) => (
+    //             <>
+    //                 {isAuthenticated ? ( 
+    //                     <button onClick={toggleAuth}>Logout</button>
+    //                 ) : (
+    //                     <button onClick={toggleAuth}>Login</button>
+    //                 )}
+    //             </>
+    //         )} 
+    //     </AuthContext.Consumer>
+    // );
 
     // if(props.isAuthenticated) {
     //     return <button onClick={props.toggleAuth}>Logout</button>
@@ -37,21 +61,36 @@ const Navbar = () => {
 };
 
 const User = () => {
+
+    const {isAuthenticated} = useContext(AuthContext);
+
     return(
-        <AuthContext.Consumer>
-            {(value) => (
-                <div>
-                    <Navbar />
-                    <hr/>
-                    {value.isAuthenticated ? (
-                        <Profile />
-                    ) : (
-                        <p>Please Login</p>
-                    )}
-                </div>
+        <div>
+            <Navbar />
+            <hr/>
+            {isAuthenticated ? (
+                <Profile />
+            ) : (
+                <p>Please Login</p>
             )}
-        </AuthContext.Consumer>
+        </div>
     );
+
+    // return(
+    //     <AuthContext.Consumer>
+    //         {(value) => (
+    //             <div>
+    //                 <Navbar />
+    //                 <hr/>
+    //                 {value.isAuthenticated ? (
+    //                     <Profile />
+    //                 ) : (
+    //                     <p>Please Login</p>
+    //                 )}
+    //             </div>
+    //         )}
+    //     </AuthContext.Consumer>
+    // );
 }
 
 const AuthContext = createContext();
@@ -64,7 +103,8 @@ class ContextDemo extends Component {
     state = {
         user: {
             name: 'A.H. Jewell',
-            email: 'ajgar@gmail.com'
+            email: 'ajgar@gmail.com',
+            profession: 'Software Developer'
         },
 
         isAuthenticated: true
