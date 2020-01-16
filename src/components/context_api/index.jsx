@@ -1,43 +1,70 @@
-import React from 'react';
+import React, {Component, createContext} from 'react';
 
-const Profile = props => {
+const Profile = () => {
     return(
-        <div>
-            <p>Name: {props.user.name}</p>
-            <p>Email: {props.user.email}</p>
-        </div>
-    );
-}
-
-const Navbar = props => {
-    if(props.isAuthenticated) {
-        return <button onClick={props.toggleAuth}>Logout</button>
-    }
-
-    return <button onClick={props.toggleAuth}>Login</button>
-
-}
-
-const User = props => {
-    return(
-        <div>
-            <Navbar toggleAuth={props.toggleAuth} isAuthenticated={props.isAuthenticated}/>
-            <hr/>
-            {props.isAuthenticated ? (
-                <Profile user={props.user}/>
-            ) : (
-                <p>Please Login</p>
+        <AuthContext.Consumer>
+            {({user}) => (
+                <div>
+                    <p>Name: {user.name}</p>
+                    <p>Email: {user.email}</p>
+                </div>
             )}
-        </div>
+        </AuthContext.Consumer>
+    );
+};
+
+const Navbar = () => {
+    return(
+        <AuthContext.Consumer>
+            {({isAuthenticated, toggleAuth}) => (
+                <>
+                    {isAuthenticated ? ( 
+                        <button onClick={toggleAuth}>Logout</button>
+                    ) : (
+                        <button onClick={toggleAuth}>Login</button>
+                    )}
+                </>
+            )} 
+        </AuthContext.Consumer>
+    );
+
+    // if(props.isAuthenticated) {
+    //     return <button onClick={props.toggleAuth}>Logout</button>
+    // }
+
+    // return <button onClick={props.toggleAuth}>Login</button>
+
+};
+
+const User = () => {
+    return(
+        <AuthContext.Consumer>
+            {(value) => (
+                <div>
+                    <Navbar />
+                    <hr/>
+                    {value.isAuthenticated ? (
+                        <Profile />
+                    ) : (
+                        <p>Please Login</p>
+                    )}
+                </div>
+            )}
+        </AuthContext.Consumer>
     );
 }
 
-class ContextDemo extends React.Component {
+const AuthContext = createContext();
+
+/*
+Main Component
+*/
+class ContextDemo extends Component {
 
     state = {
         user: {
             name: 'A.H. Jewell',
-            email: 'jewel@gmail.com'
+            email: 'ajgar@gmail.com'
         },
 
         isAuthenticated: true
@@ -48,15 +75,16 @@ class ContextDemo extends React.Component {
     }
 
     render() {
-        const {isAuthenticated, user} = this.state;
         return(
             <div>
-                <h1>Context API</h1>
-                <User 
-                    isAuthenticated={isAuthenticated}
-                    user={user}
-                    toggleAuth={this.toggleAuthentication}
-                />
+                <AuthContext.Provider 
+                    value={{
+                        ...this.state,
+                        toggleAuth: this.toggleAuthentication
+                    }}>
+                    <h1>Context API</h1>
+                    <User />
+                </AuthContext.Provider>
             </div>
         );
     }
