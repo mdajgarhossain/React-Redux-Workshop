@@ -14,6 +14,7 @@ import LifeCycleDemo from './life_cycle';
 import HOC from './hoc';
 import Another from './hoc/another';
 import ContextDemo from './context_api';
+import MyHook from './hooks';
 
 class App extends Component {
 
@@ -60,7 +61,10 @@ class App extends Component {
                         {/* <Another /> */}
 
                         {/* Day 13 */}
-                        <ContextDemo />
+                        {/* <ContextDemo /> */}
+
+                        {/* Day 14 */}
+                        <MyHook />
 
                     </div>
                 </div>
