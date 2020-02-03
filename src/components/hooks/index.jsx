@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Axios from 'axios';
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
+const ITEM_PER_PAGE = 5;
 
 const MyHook = () => {
     const [loading, setLoading] = useState(false);
@@ -20,7 +21,11 @@ const MyHook = () => {
         setLoading(true)
         Axios.get(`${BASE_URL}/posts`)
             .then(({data}) => {
-                setPosts(data.slice(0, 5));
+                setPosts(data.slice(
+                    count * ITEM_PER_PAGE, 
+                    count * ITEM_PER_PAGE + ITEM_PER_PAGE
+                    )
+                );
                 setError('');
                 setLoading(false);
             })
