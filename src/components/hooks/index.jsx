@@ -4,28 +4,17 @@ import Axios from 'axios';
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
 const ITEM_PER_PAGE = 5;
 
-const MyHook = () => {
+//My custom Hook
+function useData(url) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [posts, setPosts] = useState([]);
-    const [count, setCount] = useState(0);
-
-    //Another way to define state
-    // const [state, setState] = useState({
-    //     data: [],
-    //     loading: false,
-    //     error: ''
-    // });
+    const [data, setData] = useState([]);
 
     useEffect(() => {
         setLoading(true)
-        Axios.get(`${BASE_URL}/posts`)
+        Axios.get(url)
             .then(({data}) => {
-                setPosts(data.slice(
-                    count * ITEM_PER_PAGE, 
-                    count * ITEM_PER_PAGE + ITEM_PER_PAGE
-                    )
-                );
+                setData(data.slice(0, 5));
                 setError('');
                 setLoading(false);
             })
@@ -33,7 +22,18 @@ const MyHook = () => {
                 setError('Server Error Ocurred');
                 setLoading(false);
             })
-    }, [count]);
+    }, []);
+
+    return {
+        loading,
+        error,
+        data
+    }
+}
+
+const MyHook = props => {
+    const [count, setCount] = useState(0);
+    const {loading, error, data: posts} = useData(`${BASE_URL}/posts`);
 
     useEffect(() => {
         console.log('New Count Value', count);
