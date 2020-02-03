@@ -1,35 +1,58 @@
 import React, {useState, useEffect} from 'react';
+import Axios from 'axios';
+
+const BASE_URL = 'https://jsonplaceholder.typicode.com';
 
 const MyHook = () => {
-    // const state = useState(0);
-    // console.log(state);
-
-    // const [state, setState] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [posts, setPosts] = useState([]);
     const [count, setCount] = useState(0);
-    const [age, setAge] = useState(25);
+
+    //Another way to define state
+    // const [state, setState] = useState({
+    //     data: [],
+    //     loading: false,
+    //     error: ''
+    // });
 
     useEffect(() => {
-        console.log('Count Updated!!!');
+        setLoading(true)
+        Axios.get(`${BASE_URL}/posts`)
+            .then(({data}) => {
+                setPosts(data.slice(0, 5));
+                setError('');
+                setLoading(false);
+            })
+            .catch(e => {
+                setError('Server Error Ocurred');
+                setLoading(false);
+            })
     }, [count]);
 
     useEffect(() => {
-        console.log('Age Updated!!!');
-    }, [age]);
-
-    useEffect(() => {
-        // console.log('I am calling when state changes.');
-        console.log('I will call only once.');
-    }, []);
+        console.log('New Count Value', count);
+    }, [count]);
 
     return(
         <div>
             <h1>I am Hook</h1>
-            <h2>Count: {count}</h2>
-            <button onClick={() => setCount(count + 1)}>Increment</button>            <button onClick={() => setCount(prev => {return prev - 1})}>Decrement</button> {/*setCount eivabeo kaj kore */}
-            <div>
-                <h2>Age: {age}</h2>
-                <button onClick={() => setAge(age + 1)}>Get Older</button>
-            </div>
+            <button onClick={() => setCount(count + 1)}>Count: {count}</button>
+            {loading && <h1>Loading...</h1>}
+                {error && <p>{error}</p>}
+                {posts.length > 0 && (
+                    <>
+                        <h3>All Posts:</h3>
+                        <hr/>
+                        <ul className='list-group'>
+                            {posts.map(post => (
+                                <li className='list-group-item' key={post.id}>
+                                    {post.title}
+                                </li>
+                            ))}
+                        </ul>
+                    </>
+                )}
         </div>
     );
 }
