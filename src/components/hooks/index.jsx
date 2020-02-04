@@ -33,7 +33,8 @@ function useData(url) {
 
 const MyHook = props => {
     const [count, setCount] = useState(0);
-    const {loading, error, data: posts} = useData(`${BASE_URL}/posts`);
+    const {loading, error, data: users} = useData(`${BASE_URL}/users`);
+    const {loading: loading2, error: error2, data: posts} = useData(`${BASE_URL}/posts`);
 
     useEffect(() => {
         console.log('New Count Value', count);
@@ -43,8 +44,27 @@ const MyHook = props => {
         <div>
             <h1>I am Hook</h1>
             <button onClick={() => setCount(count + 1)}>Count: {count}</button>
-            {loading && <h1>Loading...</h1>}
+            <div>
+                {loading && <h1>Loading...</h1>}
                 {error && <p>{error}</p>}
+                {users.length > 0 && (
+                    <>
+                        <h3>All Users:</h3>
+                        <hr/>
+                        <ul className='list-group'>
+                            {users.map(user => (
+                                <li className='list-group-item' key={user.id}>
+                                    {user.name} -> {user.email}
+                                </li>
+                            ))}
+                        </ul>
+                    </>
+                )}
+                <hr />
+            </div>
+            <div>
+                {loading2 && <h1>Loading...</h1>}
+                {error2 && <p>{error2}</p>}
                 {posts.length > 0 && (
                     <>
                         <h3>All Posts:</h3>
@@ -58,6 +78,8 @@ const MyHook = props => {
                         </ul>
                     </>
                 )}
+                <hr />
+            </div>
         </div>
     );
 }
