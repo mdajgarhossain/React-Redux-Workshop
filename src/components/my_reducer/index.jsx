@@ -17,33 +17,25 @@ const reducer = (state, action) => {
 }
 
 const MyReducer = props => {
-    /*const [count, setCount] = useState(0);
-
-    const increment = () => {
-        setCount(count + 1);
-    }
-
-    const decrement = () => {
-        setCount(count - 1);
-    }
-
-    const reset = () => {
-        setCount(0);
-    }*/
-
     const [count, dispatch] = useReducer(reducer, initData);
+    const [count2, dispatch2] = useReducer(reducer, 100);
 
     return(
         <div>
             <h2>I am using Reducer! Ha ha</h2>
-            <h3>Count: {count}</h3>
-            {/* <button onClick={increment}>Increment</button>
-            <button onClick={decrement}>Decrement</button>
-            <button onClick={reset}>Reset</button> */}
-            <button onClick={() => dispatch({type: 'increment'})}>Increment</button>
-            <button onClick={() => dispatch({type: 'decrement'})}>Decrement</button>
-            <button onClick={() => dispatch({type: 'reset'})}>Reset</button>
-
+            <div>
+                <h3>Count: {count}</h3>
+                <button onClick={() => dispatch({type: 'increment'})}>Increment</button>
+                <button onClick={() => dispatch({type: 'decrement'})}>Decrement</button>
+                <button onClick={() => dispatch({type: 'reset'})}>Reset</button>
+            </div>
+            <hr/>
+            <div>
+                <h3>Count: {count2}</h3>
+                <button onClick={() => dispatch2({type: 'increment'})}>Increment</button>
+                <button onClick={() => dispatch2({type: 'decrement'})}>Decrement</button>
+                <button onClick={() => dispatch2({type: 'reset'})}>Reset</button>
+            </div>
         </div>
     );
 }
