@@ -15,6 +15,7 @@ import HOC from './hoc';
 import Another from './hoc/another';
 import ContextDemo from './context_api';
 import MyHook from './hooks';
+import MyReducer from './my_reducer';
 
 class App extends Component {
 
@@ -64,7 +65,10 @@ class App extends Component {
                         {/* <ContextDemo /> */}
 
                         {/* Day 14 */}
-                        <MyHook />
+                        {/* <MyHook /> */}
+
+                        {/* Day 15 */}
+                        <MyReducer />
 
                     </div>
                 </div>
