@@ -12,6 +12,23 @@ const initState = {
     posts:[]
 };
 
+const fetchPosts = posts => ({
+    type: FETCH_POSTS,
+    payload: posts
+});
+
+const catchErrors = (msg='') => ({
+    type: FETCH_ERROR,
+    payload: msg
+});
+
+const startLoading = () => ({type: START_LOADING});
+
+const toggleFavorite = postId => ({
+    type: TOGGLE_FAVORITE, 
+    payload: postId
+});
+
 const reducer = (state, action) => {
     switch(action.type) {
         case START_LOADING: {
@@ -58,15 +75,15 @@ const MyReducer = props => {
     const [state, dispatch] = useReducer(reducer, initState);
 
     useEffect(() => {
-        dispatch({type: START_LOADING});
+        dispatch(startLoading());
         Axios.get('https://jsonplaceholder.typicode.com/posts')
             .then(({data}) => {
                 data = data.slice(0, 5)
-                dispatch({type: FETCH_POSTS, payload: data})
+                dispatch(fetchPosts(data))
             })
             .catch(e => {
                 console.log(e);
-                dispatch({type: FETCH_ERROR})
+                dispatch(catchErrors())
             })
     }, []);
     // console.log(state);
@@ -86,10 +103,7 @@ const MyReducer = props => {
                         <li key={post.id} className='list-group-item d-flex'>
                             {post.title}
                             <button 
-                                onClick={() => dispatch({
-                                    type: TOGGLE_FAVORITE, 
-                                    payload: post.id
-                                })} 
+                                onClick={() => dispatch(toggleFavorite(post.id))} 
                                 className='btn btn-secondary btn-sm ml-auto'
                             >
                                 {post.isFavorite ? 
